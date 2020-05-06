@@ -1,36 +1,28 @@
-const fs = require("fs");
+/*const http=require('http');
 
+http.createServer(function(req,res){
+res.write('hello node.js')
+res.end();
+}).listen(3000,function(){
+    console.log('Server at http://localhost:3000');
+})
 
-
-fs.writeFileSync("content.txt", "записываем синхронно")
-
-console.log("Синхронное чтение файла")
-let fileContent = fs.readFileSync("content.txt", "utf8");
-console.log(fileContent);
-
-fs.writeFile("content.txt", "записываем  текст асинхронно", function(error){
  
-    if(error) throw error; // если возникла ошибка
-    console.log("Асинхронная запись файла завершена. Содержимое файла:");
-    let data = fs.readFileSync("content.txt", "utf8");
-    console.log(data);  // выводим считанные данные
-});
-
-fs.readFile("content.txt", "utf8", 
-            function(error,data){
-                console.log("Асинхронное чтение файла");
-                if(error) throw error; // если возникла ошибка
-                console.log(data);  // выводим считанные данные
-});
+ }
+ xhr.send() */
 
 
-fs.appendFileSync("content.txt",'\n добавляем с новой строки синхронно')
-
-
-fs.appendFile("content.txt", "\n добавляем с новой строки асинхронно", function(error){
-    if(error) throw error; // если возникла ошибка
-                 
-    console.log("Запись файла завершена. Содержимое файла:");
-    let data = fs.readFileSync("content.txt", "utf8");
-    console.log(data);  // выводим считанные данные
-});
+ const requestURL='https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=3'
+ let request = new XMLHttpRequest();
+ request.open('GET', requestURL);
+ request.onload = function() {
+  let array=JSON.parse(request.response)
+  for(let i=0;i<array.length;i++){
+  oneUl.children[i].textContent=array[i].ccy
+   twoUl.children[i].textContent=array[i].base_ccy
+    threeUl.children[i].textContent=array[i].buy
+     fourUl.children[i].textContent=array[i].sale
+   }
+ };
+ 
+ request.send();
